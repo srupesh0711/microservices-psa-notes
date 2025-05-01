@@ -186,7 +186,44 @@ management.endpoints.web.exposure.include=*
 spring.zipkin.base-url=http://localhost:9411
 spring.sleuth.sampler.probability=1.0
 
+Very Important Note:
+##########################
+✅ Tools That Support Service Name Access via Eureka:
 
+Tool	      Can Use Service Name (e.g., MICROSERVICES-1)	       Requires Eureka + Config
+Feign Client	         ✅ Yes	                                        Built-in support (just use @FeignClient)
+RestTemplate	         ✅ Yes	                                        Requires @LoadBalanced on bean
+WebClient	         ✅ Yes	                                        Requires @LoadBalanced on WebClient builder
+Browser / Postman	 ❌ No	                                        Needs actual host URL like host.docker.internal
+
+So how to access application with Service name then? To do so, we have to use client like Feign, Webclient, RestTemplate.
+Seond These Clients provide load balancer concept. Our microservices will continue to run even when url changes as microservice are being accessed using microservice names from eureka server.
+
+
+Difference Between Rest Template, Webclient & Feign client
+##############################################################
+
+
+Feature                         | RestTemplate (with setup)  | WebClient (with setup)  | Feign Client (automatic)
+------------------------------- | -------------------------- | ----------------------- | --------------------------
+Can use microservice name       | Yes                        | Yes                     | Yes
+Requires manual configuration   | Yes (@LoadBalanced)        | Yes (@LoadBalanced)     | No
+Built-in load balancing         | Yes                        | Yes                     | Yes
+URL hardcoded by default        | Yes                        | Yes                     | No
+Effort level                    | Medium                     | Medium                  | Low
+
+
+Example:
+Tool            | Call Example                                                                     
+--------------- | --------------------------------------------------------------------------------
+RestTemplate    | restTemplate.getForObject("http://MICROSERVICES-1/api/data", String.class);   
+  
+WebClient       | webClient.get().uri("http://MICROSERVICES-1/api/data").retrieve().bodyToMono(); 
+
+Feign Client    | @FeignClient(name = "MICROSERVICES-1") 
+                  public interface Client { 
+                  @GetMapping("/api/data") String getData(); 
+                  }
 
 
 
