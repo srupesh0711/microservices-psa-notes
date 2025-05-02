@@ -289,8 +289,36 @@ public class ScondController {
 	}
 
 }
+Step 6: Add the following to yaml file:
+spring:
+  application:
+    name: microservices-3
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
 
-Step 6: Test using this url: http://localhost:8085/fromsecondcontroller
+server:
+  port: 8085
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+Step 7: Test using this url: http://localhost:8085/fromsecondcontroller
 #########################################################################################################################
 
 
