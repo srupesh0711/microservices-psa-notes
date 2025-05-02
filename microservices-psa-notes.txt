@@ -321,7 +321,5 @@ management:
 Step 7: Test using this url: http://localhost:8085/fromsecondcontroller
 #########################################################################################################################
 
-
-
-
+Next topic will be load balancer
 
