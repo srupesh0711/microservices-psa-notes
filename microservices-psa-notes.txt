@@ -225,5 +225,75 @@ Feign Client    | @FeignClient(name = "MICROSERVICES-1")
                   @GetMapping("/api/data") String getData(); 
                   }
 
+####################################################################################
+Create Micro service 2 - Use Inter microservices communication --> Use Feign Client
+####################################################################################
+
+Step 1: Create Micro Service 2 Spring boot project
+Step 2: Add Following Dependencies
+
+==================================================================================================================
+| Dependency Name               | Maven Artifact ID                      | Purpose                             |
+==================================================================================================================
+| Eureka Discovery Client       | spring-cloud-starter-netflix-eureka-client | Registers service in Eureka     |
+| Spring Boot Admin Client     | spring-boot-admin-starter-client       | Sends monitoring data to Admin UI   |
+| Spring Web                   | spring-boot-starter-web                | Enables REST API support             |
+| DevTools                     | spring-boot-devtools                   | Enables auto-restart and live reload|
+| Spring Actuator              | spring-boot-starter-actuator           | Exposes health/metrics endpoints     |
+| Zipkin Tracing               | spring-cloud-starter-zipkin            | Sends tracing data to Zipkin         |
+| Sleuth (auto tracing)        | spring-cloud-starter-sleuth            | Generates trace & span IDs           |
+| OpenFeign(Client)            | org.springframework.cloud              | Performs Communication with other microservice|
+==================================================================================================================
+
+Step 3: Create Fiegn Interface
+
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@FeignClient(name = "MICROSERVICES-1") 
+public interface Client {
+	
+	@GetMapping("/message")
+	public String getData();
+
+}
+
+Step 4: (Optional if you get an error creating Client bean, add the following to Main class )
+
+@SpringBootApplication
+@EnableFeignClients(basePackages = "com.microservices2")
+public class Microservices2Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Microservices3Application.class, args);
+	}
+
+}
+
+Step 5:
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ScondController {
+	
+	@Autowired
+	private Client client;
+	
+	@GetMapping("/fromsecondcontroller")
+	public String getMessageFromMicroservices1() {
+		return client.getData();
+	}
+
+}
+
+Step 6: Test using this url: http://localhost:8085/fromsecondcontroller
+#########################################################################################################################
+
+
+
 
 
