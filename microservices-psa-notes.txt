@@ -321,5 +321,40 @@ management:
 Step 7: Test using this url: http://localhost:8085/fromsecondcontroller
 #########################################################################################################################
 
-Next topic will be load balancer
+
+
+#################################################
+Load Balancer Demonstration in microservices
+#################################################
+
+In microservice 1 remove port number and start the application on different port using Spring--> run configurations--->arguments---> -Dserver.port=8082 etc
+
+# Basic Info
+spring.application.name=my-service
+#server.port=8081-------> remove this
+
+# Eureka - Optional if you are running eureka on port 8671
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+
+# Admin Server
+spring.boot.admin.client.url=http://localhost:8080
+management.endpoints.web.exposure.include=*
+
+# Zipkin - Optional to mention. It will register with ZIPKIN Automatically
+spring.zipkin.base-url=http://localhost:9411
+spring.sleuth.sampler.probability=1.0
+
+
+In Spring Cloud, Feign Client integrates with Ribbon to provide client-side load balancing. Here’s an explanation of how Feign and Ribbon work together. This is auto configured. No extra configuration is required
+
+
+
+
+
+
+
+
+
+
+
 
