@@ -348,7 +348,78 @@ spring.sleuth.sampler.probability=1.0
 In Spring Cloud, Feign Client integrates with Ribbon to provide client-side load balancing. Here’s an explanation of how Feign and Ribbon work together. This is auto configured. No extra configuration is required
 
 
+########################
+Why API gateway?
+##################
+1. Simplified Client Communication: Clients (mobile apps, web apps) only need to interact with one API endpoint (the API Gateway) rather than multiple microservices.
 
+2. Decoupling: It decouples the client from the internal workings of the microservices. The client doesn't need to know how the services are structured or how they communicate internally.
+
+3. Centralized Management: It centralizes concerns like security, authentication, and logging
+
+How to implement API gateway:
+----------------------------
+
+Step 1 create APi gateway Spring boot project with following dependencies
+-------------------------------------------------------------------------
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+Step 2: Mention routing in yaml file
+--------------------------------------------
+server:
+  port: 5555
+  
+spring:
+  application:
+    name: API-Gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: microservice-api-1
+          uri: lb://MICROSERVICES-1
+          predicates:
+            - Path=/micro1/**
+          filters:
+            - RewritePath=/micro1/(?<segment>.*), /${segment}
+        
+        - id: microservice-api-3
+          uri: lb://MICROSERVICES-3
+          predicates:
+            - Path=/micro3/**
+          filters:
+            - RewritePath=/micro3/(?<segment>.*), /${segment}
+
+Step 3: Register with eureka server
+-----------------------------------
+@SpringBootApplication
+@EnableDiscoveryClient
+public class ApiGatewayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ApiGatewayApplication.class, args);
+	}
+
+}
+
+Step 4: Perform testing:
+http://localhost:5555/micro3/fromsecondcontroller
+
+################################################################################################
 
 
 
