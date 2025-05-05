@@ -262,7 +262,7 @@ public interface Client {
 Step 4: (Optional if you get an error creating Client bean, add the following to Main class )
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = "com.microservices2")
+@EnableFeignClients(basePackages = "com.microservices3")
 public class Microservices2Application {
 
 	public static void main(String[] args) {
@@ -278,7 +278,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ScondController {
+public class SecondController {
 	
 	@Autowired
 	private Client client;
