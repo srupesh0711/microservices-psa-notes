@@ -439,6 +439,13 @@ Spring Cloud Config Server is a central configuration management server that all
 Feature				Description
 Centralized config	All services fetch config from one place
 
+###########################################
+How to secure microservice prject?
+##############################################
+Step 1: Create AuthService with Spring Security & JWT Token
+Step 2: When you login it should generate JWT Token
+Step 3: Verify the Token in API Gateway using JwtAuthenticationFilter implements GlobalFilter class
+Step 4:  Inside Filter method verify the token
 
 
 
