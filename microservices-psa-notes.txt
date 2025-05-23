@@ -1,11 +1,14 @@
 🌐 What are Microservices?
 ################################
-Microservices is an architecture style where an application is broken down into small, independent services that communicate over a network (usually HTTP). Each service focuses on a single business function, is independently deployable, and can be developed, scaled, and maintained separately.
+Microservices is an architecture style where an application is broken down into small, 
+independent services that communicate over a network (usually HTTP). Each service focuses on a single business function,
+is independently deployable, and can be developed, scaled, and maintained separately.
 
 
 🚀 Why Use Spring Boot for Microservices?
 ###########################################
-Spring Boot provides all the necessary tools and integrations (e.g., REST APIs, Eureka, Config Server, etc.) to build robust, production-ready microservices quickly.
+Spring Boot provides all the necessary tools and integrations (e.g., REST APIs, Eureka, Config Server, etc.) to build robust, 
+production-ready microservices quickly.
 
 ✅ Benefits of Microservices with Spring Boot:
 ##############################################
@@ -18,7 +21,8 @@ Spring Boot provides all the necessary tools and integrations (e.g., REST APIs, 
 
 🔧 What is a Service Registry in Microservices?
 #####################################################
-A Service Registry is a central directory where all microservices register themselves so they can be discovered and communicate with each other without hardcoding IPs or URLs.
+A Service Registry is a central directory where all microservices register themselves 
+so they can be discovered and communicate with each other without hardcoding IPs or URLs.
 
 In Spring Boot, the most common Service Registry is Eureka Server (from Netflix OSS).
 
@@ -56,7 +60,8 @@ Don't try to fetch registry data (because it's the registry).                |
 🛠️ What is Spring Boot Admin Server?
 #############################################
 
-Spring Boot Admin Server is a web-based UI dashboard that lets you monitor and manage Spring Boot applications in real time. It provides insight into application health, metrics, environment, thread dumps, and more — all using Spring Boot Actuator endpoints under the hood.
+Spring Boot Admin Server is a web-based UI dashboard that lets you monitor and manage Spring Boot applications in real time. 
+It provides insight into application health, metrics, environment, thread dumps, and more — all using Spring Boot Actuator endpoints under the hood.
 
 ✅ Key Features of Spring Boot Admin:
 -> Real-time health status of services
